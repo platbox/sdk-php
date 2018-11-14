@@ -1,0 +1,20 @@
+{
+  "name": "platbox/sdk-php",
+  "description": "PHP SDK for interaction with PlatBox Payment System Inc.",
+  "type": "library",
+  "authors": [
+    {
+      "name": "PlatBox",
+      "email": "support-merchant@platbox.com"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "Platbox\\": "src/",
+      "Tests\\": "tests/"
+    }
+  },
+  "require": {
+    "phpunit/phpunit": "^7"
+  }
+}
