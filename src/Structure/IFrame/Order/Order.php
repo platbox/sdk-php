@@ -1,6 +1,6 @@
 <?php
 
-namespace Platbox\Structure\Order;
+namespace Platbox\Structure\IFrame\Order;
 
 /**
  * Class Order

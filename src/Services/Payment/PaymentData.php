@@ -2,12 +2,12 @@
 
 namespace Platbox\Services\Payment;
 
-use Platbox\Structure\Account\Account;
-use Platbox\Structure\Order\Order;
-use Platbox\Structure\Payer\Payer;
-use Platbox\Structure\Payment\Payment;
-use Platbox\Structure\Receipt\Receipt;
-use Platbox\Structure\Redirect\Redirect;
+use Platbox\Structure\IFrame\Account\Account;
+use Platbox\Structure\IFrame\Order\Order;
+use Platbox\Structure\IFrame\Payer\Payer;
+use Platbox\Structure\IFrame\Payment\Payment;
+use Platbox\Structure\IFrame\Receipt\Receipt;
+use Platbox\Structure\IFrame\Redirect\Redirect;
 
 /**
  * Class PaymentData
@@ -22,11 +22,6 @@ class PaymentData
     private $account;
 
     /**
-     * @var Payer
-     */
-    private $payer = null;
-
-    /**
      * @var Payment
      */
     private $payment;
@@ -37,6 +32,11 @@ class PaymentData
     private $order;
 
     /**
+     * @var Payer
+     */
+    private $payer = null;
+
+    /**
      * @var Receipt
      */
     private $receipt = null;
@@ -44,7 +44,7 @@ class PaymentData
     /**
      * @var Redirect
      */
-    private $redirect;
+    private $redirect = null;
 
     /**
      * PaymentData constructor.
@@ -56,8 +56,14 @@ class PaymentData
      * @param Receipt  $receipt
      * @param Redirect $redirect
      */
-    public function __construct(Account $account, Payment $payment, Order $order, Payer $payer = null, Receipt $receipt = null, Redirect $redirect = null)
-    {
+    public function __construct(
+        Account $account = null,
+        Payment $payment = null,
+        Order $order = null,
+        Payer $payer = null,
+        Receipt $receipt = null,
+        Redirect $redirect = null
+    ) {
         $this->account  = $account;
         $this->payment  = $payment;
         $this->order    = $order;
@@ -101,7 +107,7 @@ class PaymentData
     /**
      * @return Account
      */
-    public function getAccount(): Account
+    public function getAccount(): ?Account
     {
         return $this->account;
     }
@@ -133,7 +139,7 @@ class PaymentData
     /**
      * @return Payment
      */
-    public function getPayment(): Payment
+    public function getPayment(): ?Payment
     {
         return $this->payment;
     }
@@ -149,7 +155,7 @@ class PaymentData
     /**
      * @return Order
      */
-    public function getOrder(): Order
+    public function getOrder(): ?Order
     {
         return $this->order;
     }

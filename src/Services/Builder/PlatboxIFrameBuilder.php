@@ -47,11 +47,11 @@ class PlatboxIFrameBuilder
      * @param PlatboxIFrameGenerator $platboxIFrameGenerator
      */
     public function __construct(
-        PlatboxIFrameValidator $platboxIFrameValidator,
-        PlatboxIFrameGenerator $platboxIFrameGenerator
+        PlatboxIFrameValidator $platboxIFrameValidator = null,
+        PlatboxIFrameGenerator $platboxIFrameGenerator = null
     ) {
-        $this->platboxIFrameValidator = $platboxIFrameValidator;
-        $this->platboxIFrameGenerator = $platboxIFrameGenerator;
+        $this->platboxIFrameValidator = $platboxIFrameValidator ?? new PlatboxIFrameValidator;
+        $this->platboxIFrameGenerator = $platboxIFrameGenerator ?? new PlatboxIFrameGenerator;
     }
 
     /**
@@ -59,7 +59,7 @@ class PlatboxIFrameBuilder
      */
     public function getPaymentData(): PaymentData
     {
-        return $this->paymentData;
+        return $this->paymentData ?? new PaymentData;
     }
 
     /**
@@ -79,7 +79,7 @@ class PlatboxIFrameBuilder
      */
     public function getMerchantData(): MerchantData
     {
-        return $this->merchantData;
+        return $this->merchantData ?? new MerchantData;
     }
 
     /**
@@ -99,7 +99,7 @@ class PlatboxIFrameBuilder
      */
     public function getPlatboxData(): PlatboxData
     {
-        return $this->platboxData;
+        return $this->platboxData ?? new PlatboxData;
     }
 
     /**
@@ -117,20 +117,18 @@ class PlatboxIFrameBuilder
     /**
      * @return PlatboxIFrameInterface
      *
-     * @throws PlatboxInvalidFieldException
      * @throws PlatboxRequiredFieldException
      */
     public function build(): PlatboxIFrameInterface
     {
         $this->platboxIFrameValidator->validate(
-            $this->paymentData,
-            $this->merchantData,
-            $this->platboxData
+            $this->getPaymentData(),
+            $this->getMerchantData()
         );
 
-        $this->platboxIFrameGenerator->setPaymentData($this->paymentData);
-        $this->platboxIFrameGenerator->setMerchantData($this->merchantData);
-        $this->platboxIFrameGenerator->setPlatboxData($this->platboxData);
+        $this->platboxIFrameGenerator->setPaymentData($this->getPaymentData());
+        $this->platboxIFrameGenerator->setMerchantData($this->getMerchantData());
+        $this->platboxIFrameGenerator->setPlatboxData($this->getPlatboxData());
 
         $platboxIFrame = new PlatboxIFrame($this->platboxIFrameGenerator);
 

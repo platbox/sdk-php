@@ -86,7 +86,7 @@ class PlatboxIFrameGenerator
 
         $url = sprintf(
             "%s?%s",
-            $this->getPlatboxData()->getPaymentHost(),
+            $this->getPlatboxData()->getIframeHost(),
             http_build_query($iframeParams)
         );
 

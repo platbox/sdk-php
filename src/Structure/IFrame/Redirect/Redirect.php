@@ -1,6 +1,6 @@
 <?php
 
-namespace Platbox\Structure\Redirect;
+namespace Platbox\Structure\IFrame\Redirect;
 
 /**
  * Class Redirect

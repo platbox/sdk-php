@@ -1,6 +1,6 @@
 <?php
 
-namespace Platbox\Structure\Account;
+namespace Platbox\Structure\IFrame\Account;
 
 /**
  * Class Account
