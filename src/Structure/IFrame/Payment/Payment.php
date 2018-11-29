@@ -1,6 +1,6 @@
 <?php
 
-namespace Platbox\Structure\Payment;
+namespace Platbox\Structure\IFrame\Payment;
 
 /**
  * Class Payment
@@ -25,7 +25,7 @@ class Payment
      * @param int    $amount
      * @param string $currency
      */
-    public function __construct(int $amount, string $currency)
+    public function __construct(int $amount, string $currency = 'RUB')
     {
         $this->amount   = $amount;
         $this->currency = $currency;

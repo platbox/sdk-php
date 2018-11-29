@@ -4,14 +4,12 @@ namespace Tests\IFrame;
 
 use PHPUnit\Framework\TestCase;
 use Platbox\Services\Builder\PlatboxIFrameBuilder;
-use Platbox\Services\Builder\PlatboxIFrameGenerator;
-use Platbox\Services\Builder\PlatboxIFrameValidator;
 use Platbox\Services\Payment\MerchantData;
 use Platbox\Services\Payment\PaymentData;
 use Platbox\Services\Payment\PlatboxData;
-use Platbox\Structure\Account\Account;
-use Platbox\Structure\Order\Order;
-use Platbox\Structure\Payment\Payment;
+use Platbox\Structure\IFrame\Account\Account;
+use Platbox\Structure\IFrame\Order\Order;
+use Platbox\Structure\IFrame\Payment\Payment;
 
 class PlatboxIFrameTest extends TestCase
 {
@@ -21,19 +19,18 @@ class PlatboxIFrameTest extends TestCase
      */
     public function testIFrameBuilder()
     {
-        $iframeBuilder = new PlatboxIFrameBuilder(
-            new PlatboxIFrameValidator(),
-            new PlatboxIFrameGenerator()
-        );
-
         $paymentData = new PaymentData(
-            new Account('daurazov@platbox.com'),
-            new Payment(10000, 'RUB'),
+            new Account(
+                'accountId',
+                'accountAdditional',
+                'accountLocation'
+            ),
+            new Payment(10001, 'RUB'),
             new Order((string) rand(1111, 9999))
         );
 
         $platboxData = new PlatboxData(
-            "https://payment-playground.platbox.com/pay"
+            "https://payment-playground.platbox.com"
         );
 
         $merchantData = new MerchantData(
@@ -41,6 +38,8 @@ class PlatboxIFrameTest extends TestCase
             "3f66f166eeb1a590b88d1f19097875ab",
             "merchant_test"
         );
+
+        $iframeBuilder = new PlatboxIFrameBuilder();
 
         $iframe = $iframeBuilder
             ->setMerchantData($merchantData)
@@ -50,8 +49,10 @@ class PlatboxIFrameTest extends TestCase
 
         $url = $iframe->getPaymentLink();
 
+        print $url;
+
         $this->assertRegexp(
-            "/(?=.*payment-playground.platbox.com)(?=.*477a046a7d20e63624fa5d2d634cbdd5)(?=.*daurazov)(?=.*merchant_test)/",
+            "/(?=.*payment-playground.platbox.com)(?=.*477a046a7d20e63624fa5d2d634cbdd5)(?=.*account)(?=.*merchant_test)/",
             $url
         );
     }

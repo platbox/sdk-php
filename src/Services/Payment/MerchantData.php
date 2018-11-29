@@ -31,7 +31,7 @@ class MerchantData
      * @param string $secretKey
      * @param string $project
      */
-    public function __construct(string $openKey, string $secretKey, string $project)
+    public function __construct(string $openKey = null, string $secretKey = null, string $project = null)
     {
         $this->openKey   = $openKey;
         $this->secretKey = $secretKey;
@@ -41,7 +41,7 @@ class MerchantData
     /**
      * @return string
      */
-    public function getOpenKey(): string
+    public function getOpenKey(): ?string
     {
         return $this->openKey;
     }
@@ -57,7 +57,7 @@ class MerchantData
     /**
      * @return string
      */
-    public function getSecretKey(): string
+    public function getSecretKey(): ?string
     {
         return $this->secretKey;
     }
@@ -73,7 +73,7 @@ class MerchantData
     /**
      * @return string
      */
-    public function getProject(): string
+    public function getProject(): ?string
     {
         return $this->project;
     }

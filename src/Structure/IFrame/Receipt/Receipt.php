@@ -1,6 +1,6 @@
 <?php
 
-namespace Platbox\Structure\Receipt;
+namespace Platbox\Structure\IFrame\Receipt;
 
 /**
  * Class Receipt

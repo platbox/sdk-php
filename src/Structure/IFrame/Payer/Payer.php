@@ -1,6 +1,6 @@
 <?php
 
-namespace Platbox\Structure\Payer;
+namespace Platbox\Structure\IFrame\Payer;
 
 /**
  * Class Payer
