@@ -17,10 +17,14 @@ use Platbox\Services\Payment\MerchantData;
  */
 $inputSign = "bad_sign";
 
+/**
+ * Example of input request body.
+ * You can use file_get_contents('php://input')
+ */
 $rawData = "{
             \"action\": \"test\",
             \"platbox_tx_id\": \"42\",
-            \"platbox_tx_created_at\": \"2014-10-12T00:13:37Z\",
+            \"platbox_tx_created_at\": \"2017-05-27T02:03:00Z\",
             \"product\": \"legend_of_zelda\",
             \"payment\" : {
                 \"amount\": 10000,

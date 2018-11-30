@@ -9,14 +9,18 @@ use Platbox\Services\Payment\MerchantData;
 
 require '../vendor/autoload.php';
 
-$inputSign = "7be5b3508a286757ffce56587a60abcae92ef845b3353536097af7d72d24ae62";
+$inputSign = "354ed405973dd1a6879643e996be9f0718c545f4950beb5d4efe8f8160d6e6a9";
 
+/**
+ * Example of input request body.
+ * You can use file_get_contents('php://input')
+ */
 $rawData = "{
             \"action\": \"cancel\",
             \"platbox_tx_id\": \"42\",
-            \"platbox_tx_created_at\": \"2014-10-12T00:13:37Z\",
-            \"platbox_tx_canceled_at\": \"2014-10-12T00:13:44Z\",
-            \"merchant_tx_id\": \"1001\",
+            \"platbox_tx_created_at\": \"2017-05-27T02:03:00Z\",
+            \"platbox_tx_canceled_at\": \"2017-05-27T02:03:00Z\",
+            \"merchant_tx_id\": \"3230\",
             \"merchant_tx_extra\": {
                 \"pin_code\": \"17RT42\"
             },

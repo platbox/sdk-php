@@ -9,12 +9,16 @@ use Platbox\Services\Callback\CallbackRequest;
 use Platbox\Services\Callback\PlatboxCallbackHandler;
 use Platbox\Services\Payment\MerchantData;
 
-$inputSign = "b9f5e1bd0361a5b9b72aba3e422c968f83eb1ae0930dd0fa612577ef8ff4507b";
+$inputSign = "532d3c2b22304390e5ad3b6ac0b1d187ac6be01bfb5a572de90b5750aa3ce4ad";
 
+/**
+ * Example of input request body.
+ * You can use file_get_contents('php://input')
+ */
 $rawData = "{
             \"action\": \"check\",
             \"platbox_tx_id\": \"42\",
-            \"platbox_tx_created_at\": \"2014-10-12T00:13:37Z\",
+            \"platbox_tx_created_at\": \"2017-05-27T02:03:00Z\",
             \"product\": \"legend_of_zelda\",
             \"payment\" : {
                 \"amount\": 10000,

@@ -9,13 +9,17 @@ use Platbox\Services\Callback\CallbackRequest;
 use Platbox\Services\Callback\PlatboxCallbackHandler;
 use Platbox\Services\Payment\MerchantData;
 
-$inputSign = "ede121b1e2f36262d83bc72f807ba2e6def9c1756d2d3d70eacae6c3d2b9ce89";
+$inputSign = "8709d95b0bf57bdfafd0334c934ad778fc975d0de703132aa30df603bb4e0d90";
 
+/**
+ * Example of input request body.
+ * You can use file_get_contents('php://input')
+ */
 $rawData = "{
             \"action\": \"pay\",
             \"platbox_tx_id\": \"42\",
-            \"platbox_tx_created_at\": \"2014-10-12T00:13:37Z\",
-            \"platbox_tx_succeeded_at\": \"2014-10-12T00:13:49Z\",
+            \"platbox_tx_created_at\": \"2017-05-27T02:03:00Z\",
+            \"platbox_tx_succeeded_at\": \"2017-05-27T02:03:00Z\",
             \"merchant_tx_id\": \"1001\",
             \"merchant_tx_extra\": {
                 \"pin_code\": \"17RT42\"
