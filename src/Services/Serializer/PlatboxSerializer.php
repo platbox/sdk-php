@@ -38,7 +38,7 @@ class PlatboxSerializer
                 new CamelCaseToSnakeCaseNameConverter()
             );
 
-        $encoder = $encoder ?? new JsonEncoder(new PlatboxJsonEncode());
+        $encoder = $encoder ?? new JsonEncoder(new PlatboxJsonEncode(), new PlatboxJsonDecode());
 
         $this->serializer = new Serializer([$normalizer], [$encoder]);
     }
