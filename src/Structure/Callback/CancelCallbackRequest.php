@@ -3,6 +3,7 @@
 namespace Platbox\Structure\Callback;
 
 use Platbox\Enum\CallbackActionEnum;
+use stdClass;
 
 /**
  * Class CancelCallbackRequest
@@ -33,7 +34,7 @@ class CancelCallbackRequest extends BaseCallbackRequest
      * @param string|null          $platbox_tx_created_at
      * @param string|null          $product
      * @param string|null          $order
-     * @param array|null           $merchant_extra
+     * @param stdClass|null        $merchant_extra
      * @param CallbackPayment|null $payment
      * @param CallbackAccount|null $account
      * @param CallbackPayer|null   $payer
@@ -45,7 +46,7 @@ class CancelCallbackRequest extends BaseCallbackRequest
         string $platbox_tx_created_at = null,
         string $product = null,
         string $order = null,
-        array $merchant_extra = null,
+        stdClass $merchant_extra = null,
         CallbackPayment $payment = null,
         CallbackAccount $account = null,
         CallbackPayer $payer = null,
@@ -54,7 +55,8 @@ class CancelCallbackRequest extends BaseCallbackRequest
     ) {
         $this->reason = $reason;
 
-        parent::__construct($platbox_tx_id, $platbox_tx_created_at, $product, $order, $merchant_extra, $payment, $account, $payer, $action);
+        parent::__construct($platbox_tx_id, $platbox_tx_created_at, $product, $order, $merchant_extra, $payment,
+            $account, $payer, $action);
     }
 
     /**

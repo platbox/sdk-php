@@ -14,7 +14,6 @@ use Platbox\Structure\IFrame\Payment\Payment;
 class PlatboxIFrameTest extends TestCase
 {
     /**
-     * @throws \Platbox\Exception\PlatboxInvalidFieldException
      * @throws \Platbox\Exception\PlatboxRequiredFieldException
      */
     public function testIFrameBuilder()

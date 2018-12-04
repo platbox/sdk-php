@@ -2,7 +2,6 @@
 
 require '../vendor/autoload.php';
 
-use Platbox\Enum\CallbackActionEnum;
 use Platbox\Enum\PlatboxErrorCodeEnum;
 use Platbox\Exception\PlatboxBadSignatureException;
 use Platbox\Exception\PlatboxException;

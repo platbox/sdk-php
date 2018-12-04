@@ -44,7 +44,7 @@ class CallbackAccount
     /**
      * @return string
      */
-    public function getLocation(): string
+    public function getLocation(): ?string
     {
         return $this->location;
     }
@@ -52,7 +52,7 @@ class CallbackAccount
     /**
      * @param string $location
      */
-    public function setLocation(string $location): void
+    public function setLocation(?string $location): void
     {
         $this->location = $location;
     }
@@ -60,7 +60,7 @@ class CallbackAccount
     /**
      * @return string
      */
-    public function getAdditional(): string
+    public function getAdditional(): ?string
     {
         return $this->additional;
     }
@@ -68,7 +68,7 @@ class CallbackAccount
     /**
      * @param string $additional
      */
-    public function setAdditional(string $additional): void
+    public function setAdditional(?string $additional): void
     {
         $this->additional = $additional;
     }

@@ -84,7 +84,7 @@ class PlatboxCallbackTest extends TestCase
         $this->assertEquals($product, "legend_of_zelda");
         $this->assertEquals($reason->getCode(), "provider_limit_exceeded");
         $this->assertEquals($reason->getDescription(), "Exceeds payment limit");
-        $this->assertTrue(array_key_exists("proc_code", $extra));
+        $this->assertTrue(is_object($extra));
 
         $cancelResponse = $cancelCallback->getResponse();
 
@@ -125,39 +125,12 @@ class PlatboxCallbackTest extends TestCase
      */
     public function testPayCallbackHandler()
     {
-        $inputSign = "ede121b1e2f36262d83bc72f807ba2e6def9c1756d2d3d70eacae6c3d2b9ce89";
+        $inputSign = "2124e9c34bb2f87ad3d6ee2c31a656ddc04f9c691370c425ecf38e2f55790cfd";
 
-        $rawData = "{
-            \"action\": \"pay\",
-            \"platbox_tx_id\": \"42\",
-            \"platbox_tx_created_at\": \"2014-10-12T00:13:37Z\",
-            \"platbox_tx_succeeded_at\": \"2014-10-12T00:13:49Z\",
-            \"merchant_tx_id\": \"1001\",
-            \"merchant_tx_extra\": {
-                \"pin_code\": \"17RT42\"
-            },
-            \"product\": \"legend_of_zelda\",
-            \"payment\" : {
-                \"amount\": 10000,
-                \"currency\": \"RUB\",
-                \"exponent\": 2
-            },
-            \"account\": {
-                \"id\": \"player31337\",
-                \"location\": 4,
-                \"additional\": \"Jane Doe\"
-            },
-            \"order\": \"314542341\",
-            \"merchant_extra\": {
-                \"proc_code\": 564
-            },
-            \"payer\": {
-                \"id\": \"**********\"
-            }
-        }";
+        $rawData = '{"action":"pay","platbox_tx_succeeded_at":"2018-12-04T14:30:56Z","merchant_tx_id":"sandy_1543933856_4732","merchant_tx_extra":{"test_flag":true},"platbox_tx_id":"46831","platbox_tx_created_at":"2018-12-04T14:30:56Z","product":"sandy_merchant_acquiring","payment":{"amount":10000,"currency":"RUB","exponent":2},"account":{"id":"test@platbox.com","location":"","additional":null},"order":{"type":"order_id","order_id":"TEST_PLATBOX_1909687136"},"merchant_extra":{},"payer":null,"payment_extra":[]}';
 
         $merchantData = new MerchantData();
-        $merchantData->setSecretKey("3f66f166eeb1a590b88d1f19097875ab");
+        $merchantData->setSecretKey("317035d749530217af0ee049cfea4142");
 
         $callbackRequest = new CallbackRequest($rawData, $inputSign);
 
@@ -178,9 +151,9 @@ class PlatboxCallbackTest extends TestCase
 
         $this->assertEquals($inputAmount, 10000);
         $this->assertEquals($action, CallbackActionEnum::PAY);
-        $this->assertEquals($order, "314542341");
-        $this->assertEquals($product, "legend_of_zelda");
-        $this->assertTrue(array_key_exists("proc_code", $extra));
+        $this->assertEquals($order, '{"type":"order_id","order_id":"TEST_PLATBOX_1909687136"}');
+        $this->assertEquals($product, "sandy_merchant_acquiring");
+        $this->assertTrue(is_object($extra));
 
         $payResponse = $payCallback->getResponse();
 
@@ -221,34 +194,12 @@ class PlatboxCallbackTest extends TestCase
      */
     public function testCheckCallbackHandler()
     {
-        $inputSign = "b9f5e1bd0361a5b9b72aba3e422c968f83eb1ae0930dd0fa612577ef8ff4507b";
+        $inputSign = "a4e1a25ece3ecd9e6e230774886c7fe21ce7af5cf90bed0e3a2cbaaf9c8ed221";
 
-        $rawData = "{
-            \"action\": \"check\",
-            \"platbox_tx_id\": \"42\",
-            \"platbox_tx_created_at\": \"2014-10-12T00:13:37Z\",
-            \"product\": \"legend_of_zelda\",
-            \"payment\" : {
-                \"amount\": 10000,
-                \"currency\": \"RUB\",
-                \"exponent\": 2
-            },
-            \"account\": {
-                \"id\": \"player31337\",
-                \"location\": 4,
-                \"additional\": \"Jane Doe\"
-            },
-            \"order\": \"314542341\",
-            \"merchant_extra\": {
-                \"proc_code\": 564
-            },
-            \"payer\": {
-                \"id\": \"**********\"
-            }
-        }";
+        $rawData = '{"action":"check","platbox_tx_id":"46829","platbox_tx_created_at":"2018-12-04T13:07:46Z","product":"sandy_merchant_acquiring","payment":{"amount":10000,"currency":"RUB","exponent":2},"account":{"id":"test@platbox.com","location":"","additional":null},"order":{"type":"order_id","order_id":"TEST_PLATBOX_1980387919"},"merchant_extra":{},"payer":null,"payment_extra":[]}';
 
         $merchantData = new MerchantData();
-        $merchantData->setSecretKey("3f66f166eeb1a590b88d1f19097875ab");
+        $merchantData->setSecretKey("317035d749530217af0ee049cfea4142");
 
         $callbackRequest = new CallbackRequest($rawData, $inputSign);
 
@@ -269,16 +220,16 @@ class PlatboxCallbackTest extends TestCase
 
         $this->assertEquals($inputAmount, 10000);
         $this->assertEquals($action, CallbackActionEnum::CHECK);
-        $this->assertEquals($order, "314542341");
-        $this->assertEquals($product, "legend_of_zelda");
-        $this->assertTrue(array_key_exists("proc_code", $extra));
+        $this->assertEquals($order, '{"type":"order_id","order_id":"TEST_PLATBOX_1980387919"}');
+        $this->assertEquals($product, "sandy_merchant_acquiring");
+        $this->assertTrue(is_object($extra));
 
         $checkResponse = $checkCallback->getResponse();
 
         $checkResponse->setMerchantTxId(159);
 
         $result = $callbackHandler->getSerializer()->serialize($checkResponse);
-        print $result;
+
         $this->assertEquals('{"merchant_tx_id":"159","status":"ok"}', $result);
 
         $checkResponse->setMerchantTxExtra(["custom" => false, "custom2" => "0"]);
