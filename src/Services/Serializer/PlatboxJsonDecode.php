@@ -22,7 +22,7 @@ class PlatboxJsonDecode extends JsonDecode
     {
         $decoded = parent::decode($data, $format, $context);
 
-        if(isset($decoded->order) && is_object($decoded->order)) {
+        if(isset($decoded->order) && (is_object($decoded->order) || is_array($decoded->order))) {
             $decoded->order = json_encode($decoded->order);
         }
 

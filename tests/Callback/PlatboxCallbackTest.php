@@ -194,9 +194,9 @@ class PlatboxCallbackTest extends TestCase
      */
     public function testCheckCallbackHandler()
     {
-        $inputSign = "a4e1a25ece3ecd9e6e230774886c7fe21ce7af5cf90bed0e3a2cbaaf9c8ed221";
+        $inputSign = "51356fefe855225d1a8ea9f3d2a87f42ab165cd4bb4d0efdd92622e26399c036";
 
-        $rawData = '{"action":"check","platbox_tx_id":"46829","platbox_tx_created_at":"2018-12-04T13:07:46Z","product":"sandy_merchant_acquiring","payment":{"amount":10000,"currency":"RUB","exponent":2},"account":{"id":"test@platbox.com","location":"","additional":null},"order":{"type":"order_id","order_id":"TEST_PLATBOX_1980387919"},"merchant_extra":{},"payer":null,"payment_extra":[]}';
+        $rawData = '{"action":"check","platbox_tx_id":"46839","platbox_tx_created_at":"2018-12-05T05:39:25Z","product":"sandy_merchant_acquiring","payment":{"amount":30000,"currency":"RUB","exponent":2},"account":{"id":"test@platbox.com","location":"","additional":null},"order":[{"type":"order_id","order_id":"TEST_PLATBOX_379000874"},{"type":"order_id","order_id":"TEST_PLATBOX_379000874"}],"merchant_extra":{},"payer":null,"payment_extra":[]}';
 
         $merchantData = new MerchantData();
         $merchantData->setSecretKey("317035d749530217af0ee049cfea4142");
@@ -218,9 +218,9 @@ class PlatboxCallbackTest extends TestCase
         $order       = $checkRequest->getOrder();
         $product     = $checkRequest->getProduct();
 
-        $this->assertEquals($inputAmount, 10000);
+        $this->assertEquals(30000, $inputAmount);
         $this->assertEquals($action, CallbackActionEnum::CHECK);
-        $this->assertEquals($order, '{"type":"order_id","order_id":"TEST_PLATBOX_1980387919"}');
+        $this->assertEquals($order, '[{"type":"order_id","order_id":"TEST_PLATBOX_379000874"},{"type":"order_id","order_id":"TEST_PLATBOX_379000874"}]');
         $this->assertEquals($product, "sandy_merchant_acquiring");
         $this->assertTrue(is_object($extra));
 
