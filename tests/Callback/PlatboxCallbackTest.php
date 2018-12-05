@@ -78,12 +78,12 @@ class PlatboxCallbackTest extends TestCase
         $product     = $cancelRequest->getProduct();
         $reason      = $cancelRequest->getReason();
 
-        $this->assertEquals($inputAmount, 10000);
-        $this->assertEquals($action, CallbackActionEnum::CANCEL);
-        $this->assertEquals($order, "314542341");
-        $this->assertEquals($product, "legend_of_zelda");
-        $this->assertEquals($reason->getCode(), "provider_limit_exceeded");
-        $this->assertEquals($reason->getDescription(), "Exceeds payment limit");
+        $this->assertEquals(10000, $inputAmount);
+        $this->assertEquals(CallbackActionEnum::CANCEL, $action);
+        $this->assertEquals("314542341", $order);
+        $this->assertEquals("legend_of_zelda", $product);
+        $this->assertEquals("provider_limit_exceeded", $reason->getCode());
+        $this->assertEquals("Exceeds payment limit", $reason->getDescription());
         $this->assertTrue(is_object($extra));
 
         $cancelResponse = $cancelCallback->getResponse();
@@ -107,16 +107,10 @@ class PlatboxCallbackTest extends TestCase
         $errorResponse->setDescription("Order already exists");
 
         $result = $callbackHandler->getSerializer()->serialize($errorResponse);
-        $this->assertEquals(
-            '{"code":3000,"description":"Order already exists","status":"error"}',
-            $result
-        );
+        $this->assertEquals('{"code":3000,"description":"Order already exists","status":"error"}', $result);
 
         $result = $callbackHandler->toJson($errorResponse);
-        $this->assertEquals(
-            '{"code":3000,"description":"Order already exists","status":"error"}',
-            $result
-        );
+        $this->assertEquals('{"code":3000,"description":"Order already exists","status":"error"}', $result);
     }
 
     /**
@@ -149,10 +143,10 @@ class PlatboxCallbackTest extends TestCase
         $order       = $payRequest->getOrder();
         $product     = $payRequest->getProduct();
 
-        $this->assertEquals($inputAmount, 10000);
-        $this->assertEquals($action, CallbackActionEnum::PAY);
-        $this->assertEquals($order, '{"type":"order_id","order_id":"TEST_PLATBOX_1909687136"}');
-        $this->assertEquals($product, "sandy_merchant_acquiring");
+        $this->assertEquals(10000, $inputAmount);
+        $this->assertEquals(CallbackActionEnum::PAY, $action);
+        $this->assertEquals('{"type":"order_id","order_id":"TEST_PLATBOX_1909687136"}', $order);
+        $this->assertEquals("sandy_merchant_acquiring", $product);
         $this->assertTrue(is_object($extra));
 
         $payResponse = $payCallback->getResponse();
@@ -176,16 +170,10 @@ class PlatboxCallbackTest extends TestCase
         $errorResponse->setDescription("Order already exists");
 
         $result = $callbackHandler->getSerializer()->serialize($errorResponse);
-        $this->assertEquals(
-            '{"code":3000,"description":"Order already exists","status":"error"}',
-            $result
-        );
+        $this->assertEquals('{"code":3000,"description":"Order already exists","status":"error"}', $result);
 
         $result = $callbackHandler->toJson($errorResponse);
-        $this->assertEquals(
-            '{"code":3000,"description":"Order already exists","status":"error"}',
-            $result
-        );
+        $this->assertEquals('{"code":3000,"description":"Order already exists","status":"error"}', $result);
     }
 
     /**
@@ -219,9 +207,9 @@ class PlatboxCallbackTest extends TestCase
         $product     = $checkRequest->getProduct();
 
         $this->assertEquals(30000, $inputAmount);
-        $this->assertEquals($action, CallbackActionEnum::CHECK);
-        $this->assertEquals($order, '[{"type":"order_id","order_id":"TEST_PLATBOX_379000874"},{"type":"order_id","order_id":"TEST_PLATBOX_379000874"}]');
-        $this->assertEquals($product, "sandy_merchant_acquiring");
+        $this->assertEquals(CallbackActionEnum::CHECK, $action);
+        $this->assertEquals('[{"type":"order_id","order_id":"TEST_PLATBOX_379000874"},{"type":"order_id","order_id":"TEST_PLATBOX_379000874"}]', $order);
+        $this->assertEquals("sandy_merchant_acquiring", $product);
         $this->assertTrue(is_object($extra));
 
         $checkResponse = $checkCallback->getResponse();
@@ -235,10 +223,7 @@ class PlatboxCallbackTest extends TestCase
         $checkResponse->setMerchantTxExtra(["custom" => false, "custom2" => "0"]);
 
         $result = $callbackHandler->getSerializer()->serialize($checkResponse);
-        $this->assertEquals(
-            '{"merchant_tx_extra":{"custom":false,"custom2":"0"},"merchant_tx_id":"159","status":"ok"}',
-            $result
-        );
+        $this->assertEquals('{"merchant_tx_extra":{"custom":false,"custom2":"0"},"merchant_tx_id":"159","status":"ok"}', $result);
 
         $generatedSign = $callbackHandler->generateSign($checkResponse);
 
@@ -251,15 +236,9 @@ class PlatboxCallbackTest extends TestCase
         $errorResponse->setDescription("Order already exists");
 
         $result = $callbackHandler->getSerializer()->serialize($errorResponse);
-        $this->assertEquals(
-            '{"code":1000,"description":"Order already exists","status":"error"}',
-            $result
-        );
+        $this->assertEquals('{"code":1000,"description":"Order already exists","status":"error"}', $result);
 
         $result = $callbackHandler->toJson($errorResponse);
-        $this->assertEquals(
-            '{"code":1000,"description":"Order already exists","status":"error"}',
-            $result
-        );
+        $this->assertEquals('{"code":1000,"description":"Order already exists","status":"error"}', $result);
     }
 }
